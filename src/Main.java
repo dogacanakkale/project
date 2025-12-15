@@ -56,13 +56,44 @@ import java.util.*;
         }
 
         public static int commodityProfitInRange(String commodity, int from, int to) {
-            return 1234;
+            int index = -1;
+
+            for (int i = 0; i < commodities.length; i++) {
+                if (commodities[i].equals(commodity)) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index == -1 || from < 1 || to > 28 || from > to) {
+                return -99999;
+            }
+            int totalProfit = 0;
+            for (int month = 0; month < 12; month++) {
+                for (int day = from - 1; day <= to - 1; day++) {
+                    totalProfit += profitData[month][day][index];
+                }
+            }
+            return totalProfit;
         }
 
         public static int bestDayOfMonth(int month) {
-            return 1234;
-        }
-
+            if (month < 0 || month > 11) {
+                return -1;
+            }
+            int bestDay = 1;
+            int bestProfit = Integer.MIN_VALUE;
+            for (int day = 0; day < 28; day++) {
+                int sum = 0;
+                for (int j = 0; j < COMMS; j++) {
+                    sum += profitData[month][day][j];
+                    if (sum > bestProfit) {
+                        bestProfit = sum;
+                        bestDay = day + 1;
+                    }
+                }
+            }
+                return bestDay;
+            }
         public static String bestMonthForCommodity(String comm) {
             return "DUMMY";
         }
