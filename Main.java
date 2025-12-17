@@ -114,7 +114,8 @@ import java.util.*;
             }
 
 
-        public static int consecutiveLossDays(String comm) {int cIndex = -1;
+        public static int consecutiveLossDays(String comm) {
+            int cIndex = -1;
             for (int c = 0; c < COMMS; c++){
                 if (commodities[c].equals(comm)){
                     cIndex = c;
@@ -144,11 +145,54 @@ import java.util.*;
         }
 
         public static int daysAboveThreshold(String comm, int threshold) {
-            return 1234;
+            int cIndex = -1;
+            for (int c = 0; c < COMMS; c++){
+                if (commodities[c].equals(comm)){
+                    cIndex = c;
+                }
+            }
+            if (cIndex == -1){
+                return -1;
+            }
+            int days = 0;
+            for (int m = 0; m < MONTHS; m++)
+                for (int d = 0; d < DAYS; d++)
+                    if (profitData[m][d][cIndex] > threshold)
+                        days++;
+
+            return days;
         }
 
+
+
         public static int biggestDailySwing(int month) {
-            return 1234;
+            if (month < 0 || month >= MONTHS)
+                return -99999;
+
+            int maxSwing = 0;
+            for (int d = 0; d < DAYS - 1; d++) {
+
+                int today = 0;
+                int tomorrow = 0;
+
+                for (int c = 0; c < COMMS; c++) {
+                    today += profitData[month][d][c];
+                    tomorrow += profitData[month][d + 1][c];
+                }
+
+                int diff;
+                if (today > tomorrow) {
+                    diff = today - tomorrow;
+                } else {
+                    diff = tomorrow - today;
+                }
+
+                if (diff > maxSwing) {
+                    maxSwing = diff;
+                }
+            }
+            return maxSwing;
+
         }
 
         public static String compareTwoCommodities(String c1, String c2) {
@@ -164,3 +208,4 @@ import java.util.*;
             System.out.println("Data loaded – ready for queries");
         }
     }
+
