@@ -11,8 +11,6 @@ public class Main {
             "July","August","September","October","November","December"};
     public static int[][][] profitData=new int[MONTHS][DAYS][COMMS];
 
-
-
     // ======== REQUIRED METHOD LOAD DATA (Students fill this) ========
     public static void loadData() {
         String[] files = {
@@ -22,17 +20,11 @@ public class Main {
         };
 
         for (int m = 0; m < MONTHS; m++) {
-
             try {
+                Scanner sc = new Scanner(new File("Data_Files/" + files[m]));
 
-                BufferedReader br = new BufferedReader(
-                        new FileReader("Data_Files/" + files[m])
-                );
-
-                String line;
-
-                while ((line = br.readLine()) != null) {
-
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine();
                     String[] parts = line.split(",");
 
                     int day = Integer.parseInt(parts[0]) - 1; // 1–28 → 0–27
@@ -52,7 +44,7 @@ public class Main {
                     }
                 }
 
-                br.close();
+                sc.close();
 
             } catch (Exception e) {
 
@@ -156,7 +148,6 @@ public class Main {
         }
         return months[bestMonth];
     }
-
 
     public static int consecutiveLossDays(String comm) {
         int cIndex = -1;
