@@ -71,15 +71,15 @@ public class Main {
 
         for (int c = 0; c < COMMS; c++) {
             int sum = 0;
-            for (int d = 0; d < DAYS; d++)
-                sum += profitData[month][d][c];
+            for (int d = 0; d < DAYS; d++){
+                sum += profitData[month][d][c];}
 
             if (sum > maxProfit) {
                 maxProfit = sum;
                 best = commodities[c];
             }
         }
-        return best + " " + maxProfit;
+        return best;
     }
 
 
@@ -123,15 +123,16 @@ public class Main {
         for (int d = 0; d <DAYS; d++) {
             int sum = 0;
             for (int c = 0; c < COMMS; c++) {
-                sum += profitData[month][d][c];
+                sum += profitData[month][d][c];}
                 if (sum > max) {
                     max = sum;
                     bestDay = d + 1;
                 }
             }
-        }
+
 
         return bestDay;
+
     }
     public static String bestMonthForCommodity(String comm) {
         int cIndex = -1;
@@ -291,7 +292,4 @@ public class Main {
         System.out.println("Data loaded – ready for queries");
     }
 }
-
-
-
 
